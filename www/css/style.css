@@ -89,3 +89,18 @@
         font-family: Times;
         border-radius: 20px;
     }
+
+    .circle1{
+        position:absolute;
+        top:470px; left:185px;
+        width:10px; height:10px;
+        border-radius: 50%;
+        background-color: black;
+    }
+    .circle2{
+        position:absolute;
+        top:495px; left:185px;
+        width:10px; height:10px;
+        border-radius: 50%;
+        background-color: black;
+    }
