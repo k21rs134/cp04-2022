@@ -219,6 +219,8 @@
 
             $('#btnA').prop('disabled', false);
             $('#btnB').prop('disabled', true);
+
+            $("body").css("background-color","skyblue");
         }
 
 
@@ -240,9 +242,16 @@
                 $("#remain").html("残り時間：" + rest + "秒" + "(" + m + ":" + s + ")");
                 analog(rest);
 
-                if (rest <= 0) {
+                if (10 < rest) {
+                    $("body").css("background-color","powderblue");
+                }else if (5 < rest) {
+                    $("body").css("background-color","pink");
+                }else if (0 < rest) {
+                    $("body").css("background-color","thistle");
+                }else if (rest <= 0) {
                     active = false;
                     alarm();
+                    $("body").css("background-color","lightgray");
                 }
             }
 
