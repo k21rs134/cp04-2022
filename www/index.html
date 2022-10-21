@@ -157,7 +157,10 @@
         var startTime = 0;
         var period = 0;
 
-        var stop = 0;
+        var stop = false;
+        var stopTime = 0;
+        var pastTime = 0;
+        var pastTimeStock = 0;
 
         //var m = parseInt(rest/60);
         //var s = parseInt
@@ -190,10 +193,20 @@
         // ButtonAがクリックされた時の処理
         function btnAClick(e) {
             active = true;
-            startTime = new Date();
-
+            //startTime = new Date();//
+            
+            if (stop == false) {
+                //active = true;
+                startTime = new Date();
+                //stop = false;
+            }else{
+                pastTime = new Date() - stopTime;
+                pastTimeStock += pastTime;
+            }
+            stop = false;//
             $('#btnA').prop('disabled', true);
             $('#btnB').prop('disabled', false);
+
             //$('#btnC').prop('disabled', false);
         }
 
@@ -204,8 +217,8 @@
             $('#btnA').prop('disabled', false);
             $('#btnB').prop('disabled', true);
             //$('#btnC').prop('disabled', false);
-
-            stop = rest;
+            stop = true;
+            stopTime = new Date();
         }
 
         // ButtonCがクリックされた時の処理
@@ -220,14 +233,16 @@
             $('#btnA').prop('disabled', false);
             $('#btnB').prop('disabled', true);
 
-            $("body").css("background-color","skyblue");
+            $("body").css("background-color", "skyblue");
+            stop = false;
+            pastTimeStock = 0;
         }
 
 
         // 繰り返し実行する処理
         function timer() {
             if (active) {
-                var time = parseInt((new Date() - startTime) / 1000);
+                var time = parseInt((new Date() - startTime - pastTimeStock) / 1000);
                 var rest = period - time;
 
                 var m = parseInt(rest / 60);
@@ -243,15 +258,15 @@
                 analog(rest);
 
                 if (10 < rest) {
-                    $("body").css("background-color","powderblue");
-                }else if (5 < rest) {
-                    $("body").css("background-color","pink");
-                }else if (0 < rest) {
-                    $("body").css("background-color","thistle");
-                }else if (rest <= 0) {
+                    $("body").css("background-color", "powderblue");
+                } else if (5 < rest) {
+                    $("body").css("background-color", "pink");
+                } else if (0 < rest) {
+                    $("body").css("background-color", "thistle");
+                } else if (rest <= 0) {
                     active = false;
                     alarm();
-                    $("body").css("background-color","lightgray");
+                    $("body").css("background-color", "lightgray");
                 }
             }
 
